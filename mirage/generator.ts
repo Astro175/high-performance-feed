@@ -18,10 +18,10 @@ export const generatePost = (id: number, likedPosts: Set<number>) => {
       likes: likedPosts.has(id)
         ? likes[seededIndex(id, likes.length)] + 1
         : likes[seededIndex(id, likes.length)],
-      dislikes: dislikes[seededIndex(id, dislikes.length)],
     },
     views: views[seededIndex(id, views.length)],
     category: categories[seededIndex(id, categories.length)],
+    isLiked: likedPosts.has(id),
   };
 };
 

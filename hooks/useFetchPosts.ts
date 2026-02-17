@@ -1,12 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const useFetchPosts = () => {
+export const useFetchPosts = (query?: string) => {
   return useInfiniteQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", query],
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
+      const baseUrl = query ? `/api/posts/search?q=${query}` : `/api/posts`;
+      const separator = query ? "&" : "?";
       return fetch(
-        `/api/posts?limit=10${pageParam ? `&cursor=${pageParam}` : ""}`,
+        `${baseUrl}${separator}limit=10${pageParam ? `&cursor=${pageParam}` : ""}`,
       ).then((res) => res.json());
     },
     getNextPageParam: (lastPage) => lastPage.nextCursor,

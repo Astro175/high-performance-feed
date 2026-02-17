@@ -5,8 +5,8 @@ export type Post = {
   author: string;
   reactions: {
     likes: number;
-    dislikes: number;
   };
   views: number;
   category: string;
+  isLiked: boolean;
 };

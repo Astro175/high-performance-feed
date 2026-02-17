@@ -7,6 +7,7 @@ export const makeServer = ({ environment = "test" } = {}) => {
   let server = createServer({
     routes() {
       this.namespace = "api";
+      this.timing = 1000; // 1 second delay
       this.get("/posts", (schema, request) => {
         const limit = request.queryParams.limit
           ? Number(request.queryParams.limit)
