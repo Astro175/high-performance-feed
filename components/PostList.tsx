@@ -1,10 +1,18 @@
 import { useFetchPosts } from "@/hooks/useFetchPosts";
 import React from "react";
-import { ActivityIndicator, FlatList, Text } from "react-native";
+
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { PostCard } from "./PostCard";
+import PostSkeletonCard from "./PostSkeletonCard";
 const ITEM_HEIGHT = 404;
 
-const PostList = ({searchQuery} : {searchQuery?: string}) => {
+const PostList = ({
+  searchQuery,
+  categoryFilter,
+}: {
+  searchQuery?: string;
+  categoryFilter?: string;
+}) => {
   const {
     data,
     hasNextPage,
@@ -14,11 +22,17 @@ const PostList = ({searchQuery} : {searchQuery?: string}) => {
     isRefetching,
     refetch,
     error,
-  } = useFetchPosts(searchQuery);
+  } = useFetchPosts(searchQuery, categoryFilter);
   const posts = data?.pages.flatMap((page) => page.data) ?? [];
 
   if (status === "pending") {
-    return <ActivityIndicator size="large" />;
+    return (
+      <View>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <PostSkeletonCard key={index} />
+        ))}
+      </View>
+    );
   }
 
   if (status === "error") {

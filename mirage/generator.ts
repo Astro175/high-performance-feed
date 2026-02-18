@@ -2,7 +2,6 @@ import {
   authors,
   bodies,
   categories,
-  dislikes,
   likes,
   titles,
   views,

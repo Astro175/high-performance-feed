@@ -1,13 +1,24 @@
+import CategoryChip from "@/components/CategoryChip";
 import PostList from "@/components/PostList";
+import { categories } from "@/data";
 import { useFetchPosts } from "@/hooks/useFetchPosts";
 import { useEffect, useState } from "react";
-import { Platform, StyleSheet, TextInput, View } from "react-native";
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const [searchText, setSearchText] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const { data } = useFetchPosts(debouncedSearch);
+  const [selectedCategory, setSelectedCategory] = useState<
+    string | undefined
+  >();
+  const { data } = useFetchPosts(debouncedSearch, selectedCategory);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,8 +38,27 @@ export default function HomeScreen() {
           style={styles.input}
         />
       </View>
-
-      <PostList searchQuery={debouncedSearch} />
+      <ScrollView
+        horizontal={true}
+        style={{ height: 50, paddingHorizontal: 16, marginBottom: 16 }}
+      >
+        <CategoryChip
+          label="All"
+          value={undefined}
+          selectedValue={selectedCategory}
+          setSelectedValue={setSelectedCategory}
+        />
+        {categories.map((category) => (
+          <CategoryChip
+            key={category}
+            label={category}
+            value={category}
+            selectedValue={selectedCategory}
+            setSelectedValue={setSelectedCategory}
+          />
+        ))}
+      </ScrollView>
+      <PostList searchQuery={debouncedSearch} categoryFilter={selectedCategory}/>
     </SafeAreaView>
   );
 }

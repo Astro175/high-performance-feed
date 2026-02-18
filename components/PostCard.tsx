@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
     elevation: 3,
-    overflow: "hidden", // ensures image follows rounded corners
+    overflow: "hidden",
   },
   image: {
     width: "100%",
