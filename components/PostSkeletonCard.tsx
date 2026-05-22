@@ -6,7 +6,6 @@ export default function PostSkeletonCard() {
   return (
     <View style={styles.card}>
       <Skeleton width="100%" height={180} radius={0} colorMode="light" />
-
       <View style={styles.header}>
         <Skeleton width={80} height={24} radius={20} colorMode="light" />
         <Skeleton width={80} height={14} radius={6} colorMode="light" />

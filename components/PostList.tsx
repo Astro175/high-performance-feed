@@ -1,10 +1,10 @@
 import { useFetchPosts } from "@/hooks/useFetchPosts";
 import React from "react";
-
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { ActivityIndicator, Text, View } from "react-native";
 import { PostCard } from "./PostCard";
 import PostSkeletonCard from "./PostSkeletonCard";
-const ITEM_HEIGHT = 404;
+
 
 const PostList = ({
   searchQuery,
@@ -41,14 +41,8 @@ const PostList = ({
   }
 
   return (
-    <FlatList
+    <FlashList
       data={posts}
-      getItemLayout={(data, index) => ({
-        length: ITEM_HEIGHT,
-        offset: ITEM_HEIGHT * index,
-        index,
-      })}
-      keyExtractor={(item) => `${item.id}`}
       onRefresh={() => {
         refetch();
       }}

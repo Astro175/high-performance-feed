@@ -1,7 +1,6 @@
 import CategoryChip from "@/components/CategoryChip";
 import PostList from "@/components/PostList";
 import { categories } from "@/data";
-import { useFetchPosts } from "@/hooks/useFetchPosts";
 import { useEffect, useState } from "react";
 import {
   Platform,
@@ -18,7 +17,6 @@ export default function HomeScreen() {
   const [selectedCategory, setSelectedCategory] = useState<
     string | undefined
   >();
-  const { data } = useFetchPosts(debouncedSearch, selectedCategory);
 
   useEffect(() => {
     const timer = setTimeout(() => {
